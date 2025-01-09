@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+</head>
+<body>
+	
+	
+	<p>Sayı : <output id="sonuc"></output></p>
+<button onclick="calistir()">Web Workers çalıştır</button>
+<button onclick="durdur()">Web Workers durdur</button>
+
+<script>
+var w;
+
+function calistir() {
+  if (typeof (Worker) !== "undefined") {
+    if (typeof (w) == "undefined") {
+      w = new Worker("script.js");
+    }
+
+    w.onmessage = function (o) {
+      document.getElementById("sonuc").innerHTML = o.data;
+    }
+
+  } else {
+    alert("Tarayıcınız Web Workers API desteklemiyor.");
+  }
+}
+
+function durdur() {
+  w.terminate();
+  w = undefined;
+}
+</script>
+	
+</body>
+</html>
